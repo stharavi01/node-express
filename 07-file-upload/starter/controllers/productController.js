@@ -2,11 +2,14 @@ const Product = require('../models/Product');
 const { StatusCodes } = require('http-status-codes');
 
 const createProduct = async (req, res) => {
-    res.send('Create Products');
+    const product = await Product.create(req.body);
+    console.log(product);
+    res.status(StatusCodes.CREATED).json({ product });
 };
 
 const getAllProducts = async (req, res) => {
-    res.send('Get All Products');
+    const products = await Product.find({});
+    res.status(StatusCodes.OK).json({ products });
 };
 
 

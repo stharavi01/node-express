@@ -4,19 +4,24 @@ require('express-async-errors');
 const express = require('express');
 const app = express();
 
+const fileUpload = require('express-fileupload');
+
 // database
 const connectDB = require('./db/connect');
 
 // product routers
 const productRouter = require('./routes/productRoutes');
 
-// uploads routers
 
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
+// making client side files available as static files
+app.use(express.static('./public'));
+
 app.get(express.json());
+app.use(fileUpload());
 
 app.get('/', (req, res) => {
   res.send('<h1>File Upload Starter</h1>');
